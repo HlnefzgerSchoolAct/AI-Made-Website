@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FocusFlow - Complete productivity dashboard">
+    <title>FocusFlow - Productivity Dashboard</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/themes.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body class="theme-default">
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <h2>FocusFlow</h2>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+        </div>
+    </div>
+    <nav id="main-nav" class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand"><span>🎯</span><span>FocusFlow</span></div>
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active">📊 Dashboard</a>
+                <a href="#pomodoro" class="nav-link">⏱️ Pomodoro</a>
+                <a href="#tasks" class="nav-link">✅ Tasks</a>
+                <a href="#habits" class="nav-link">🎯 Habits</a>
+                <a href="#notes" class="nav-link">📝 Notes</a>
+                <a href="#goals" class="nav-link">🎖️ Goals</a>
+                <a href="#stats" class="nav-link">📈 Stats</a>
+                <a href="#calendar" class="nav-link">📅 Calendar</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-btn" id="focus-mode-btn">🧘</button>
+                <button class="nav-btn" id="sounds-btn">🎵</button>
+                <button class="nav-btn" id="settings-btn">⚙️</button>
+            </div>
+        </div>
+    </nav>
+    <main id="main-content">
+        <section id="dashboard-section" class="section active">
+            <div class="hero-section">
+                <canvas id="hero-canvas"></canvas>
+                <div class="hero-content">
+                    <h1><span id="greeting-text">Good Morning</span>, <span id="user-name">Champion</span>! 👋</h1>
+                    <p id="motivational-quote">The secret of getting ahead is getting started.</p>
+                    <div class="hero-stats">
+                        <div class="hero-stat"><span class="stat-value" id="tasks-completed-today">0</span><span>Tasks Today</span></div>
+                        <div class="hero-stat"><span class="stat-value" id="focus-time-today">0h</span><span>Focus Time</span></div>
+                        <div class="hero-stat highlight"><span class="stat-value" id="current-streak">0</span><span>Day Streak 🔥</span></div>
+                        <div class="hero-stat"><span class="stat-value" id="level-display">1</span><span>Level</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <button class="action-card" data-action="start-pomodoro">⏱️ Start Pomodoro</button>
+                    <button class="action-card" data-action="add-task">➕ Add Task</button>
+                    <button class="action-card" data-action="log-habit">✨ Log Habit</button>
+                    <button class="action-card" data-action="new-note">📝 New Note</button>
+                    <button class="action-card" data-action="daily-challenge">🎲 Daily Challenge</button>
+                    <button class="action-card" data-action="export-data">💾 Export</button>
+                </div>
+            </div>
+            <div class="dashboard-widgets">
+                <div class="widget clock-widget">
+                    <h3>Current Time</h3>
+                    <div id="current-time">12:00:00</div>
+                    <div id="current-date">Monday, January 1, 2024</div>
+                </div>
+                <div class="widget tasks-widget">
+                    <h3>Today's Tasks</h3>
+                    <div id="today-tasks-list"></div>
+                </div>
+                <div class="widget habits-widget">
+                    <h3>Today's Habits</h3>
+                    <div id="today-habits-list"></div>
+                </div>
+            </div>
+        </section>
+        <section id="pomodoro-section" class="section">
+            <h1>⏱️ Pomodoro Timer</h1>
+            <div class="timer-card">
+                <canvas id="timer-canvas"></canvas>
+                <div id="timer-display">25:00</div>
+                <div class="timer-controls">
+                    <button id="timer-start">▶️ Start</button>
+                    <button id="timer-pause">⏸️ Pause</button>
+                    <button id="timer-reset">🔄 Reset</button>
+                </div>
+            </div>
+        </section>
+        <section id="tasks-section" class="section">
+            <h1>✅ Task Manager</h1>
+            <button id="add-task-btn">➕ Add Task</button>
+            <div class="kanban-board">
+                <div class="kanban-column"><h3>📝 To Do</h3><div id="todo-column"></div></div>
+                <div class="kanban-column"><h3>⚡ In Progress</h3><div id="in-progress-column"></div></div>
+                <div class="kanban-column"><h3>✅ Done</h3><div id="done-column"></div></div>
+            </div>
+        </section>
+        <section id="habits-section" class="section">
+            <h1>🎯 Habit Tracker</h1>
+            <button id="add-habit-btn">➕ Add Habit</button>
+            <div id="habits-grid"></div>
+            <div id="habit-heatmap"></div>
+        </section>
+        <section id="notes-section" class="section">
+            <h1>📝 Notes & Journal</h1>
+            <button id="add-note-btn">➕ New Note</button>
+            <div class="notes-container">
+                <div class="notes-sidebar">
+                    <input type="text" id="notes-search" placeholder="Search...">
+                    <div id="notes-list"></div>
+                </div>
+                <div class="notes-editor">
+                    <input type="text" id="note-title" placeholder="Title...">
+                    <div id="note-editor" contenteditable="true"></div>
+                    <button id="save-note-btn">Save</button>
+                </div>
+            </div>
+        </section>
+        <section id="goals-section" class="section">
+            <h1>🎖️ Goals & Progress</h1>
+            <button id="add-goal-btn">➕ New Goal</button>
+            <div id="goals-grid"></div>
+        </section>
+        <section id="stats-section" class="section">
+            <h1>📈 Statistics</h1>
+            <div class="charts-grid">
+                <canvas id="focus-trend-chart"></canvas>
+                <canvas id="task-completion-chart"></canvas>
+                <canvas id="category-pie-chart"></canvas>
+            </div>
+        </section>
+        <section id="calendar-section" class="section">
+            <h1>📅 Calendar</h1>
+            <div id="calendar-grid"></div>
+        </section>
+    </main>
+    <div id="focus-mode" class="focus-mode" style="display:none;">
+        <canvas id="focus-background"></canvas>
+        <button id="focus-exit-btn">✕ Exit</button>
+        <div id="focus-mode-time">25:00</div>
+    </div>
+    <div id="sounds-panel" style="display:none;">
+        <h3>🎵 Sounds</h3>
+        <button id="sounds-panel-close">✕</button>
+        <div class="sounds-grid">
+            <div data-sound="rain">🌧️ Rain<input type="range" class="sound-volume" min="0" max="100" value="0"></div>
+            <div data-sound="ocean">🌊 Ocean<input type="range" class="sound-volume" min="0" max="100" value="0"></div>
+        </div>
+    </div>
+    <div id="settings-modal" class="modal" style="display:none;">
+        <h2>⚙️ Settings</h2>
+        <button id="settings-close">✕</button>
+    </div>
+    <div id="toast-container"></div>
+    <canvas id="confetti-canvas"></canvas>
+    <script src="./js/utils.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/i18n.js"></script>
+    <script src="./js/animations.js"></script>
+    <script src="./js/charts.js"></script>
+    <script src="./js/sounds.js"></script>
+    <script src="./js/notifications.js"></script>
+    <script src="./js/shortcuts.js"></script>
+    <script src="./js/pomodoro.js"></script>
+    <script src="./js/tasks.js"></script>
+    <script src="./js/habits.js"></script>
+    <script src="./js/notes.js"></script>
+    <script src="./js/goals.js"></script>
+    <script src="./js/stats.js"></script>
+    <script src="./js/calendar.js"></script>
+    <script src="./js/gamification.js"></script>
+    <script src="./js/settings.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
